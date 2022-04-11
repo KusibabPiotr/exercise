@@ -26,8 +26,6 @@ Project is created with:
 * go to project root and tap "docker compose up -d"
 * you need DB go to >>> http://localhost:5050/browser/ and create server with:
   - General: tap any name
-  - Connection: Host Name / Address >>> postgres
-                username >>> amigoscode
-                password >>> password
+  - Connection: Host Name / address : "postgres", username : "amigoscode", password : "password"
 * build project with "gradlew build"
 * go to /build/libs and run application with "java -jar exercise-0.0.1-SNAPSHOT.jar
