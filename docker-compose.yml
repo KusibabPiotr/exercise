@@ -1,0 +1,56 @@
+services:
+#  app:
+#    container_name: app
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+##    image: piotrka94/exercise:latest
+#    depends_on:
+#      - postgres
+#    ports:
+#    - "8080:8080"
+#    networks:
+#      - postgres
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/exercise
+#      - SPRING_DATASOURCE_USERNAME=amigoscode
+#      - SPRING_DATASOURCE_PASSWORD=password
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: amigoscode
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
